@@ -667,18 +667,20 @@ class Order extends AbstractModel implements EntityInterface, OrderInterface
      */
     public function canInvoice()
     {
+        
         if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
+        
         $state = $this->getState();
         if ($this->isCanceled() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
             return false;
         }
-
+        
         if ($this->getActionFlag(self::ACTION_FLAG_INVOICE) === false) {
             return false;
         }
-
+        
         foreach ($this->getAllItems() as $item) {
             if ($item->getQtyToInvoice() > 0 && !$item->getLockedDoInvoice()) {
                 return true;

@@ -280,7 +280,6 @@ class ShippingInformationManagement implements ShippingInformationManagementInte
         if ($shipping === null) {
             $shipping = $this->shippingFactory->create();
         }
-
         $shipping->setAddress($address);
         $shipping->setMethod($method);
         $shippingAssignment->setShipping($shipping);

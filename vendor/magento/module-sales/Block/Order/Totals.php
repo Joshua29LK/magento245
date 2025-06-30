@@ -167,6 +167,9 @@ class Totals extends \Magento\Framework\View\Element\Template
                 ]
             );
         }
+
+        $this->removeTotal('base_grandtotal');
+        
         return $this;
     }
 

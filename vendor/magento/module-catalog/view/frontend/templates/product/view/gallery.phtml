@@ -28,24 +28,74 @@ $mainImageData = $mainImage ?
 
 ?>
 
-<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder" style="contain: layout style paint; content-visibility: auto;">
     <img
         alt="main product photo"
         class="gallery-placeholder__image"
         src="<?= /* @noEscape */ $mainImageData ?>"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        style="transform: translateZ(0); will-change: transform; backface-visibility: hidden;"
     />
 </div>
 
+<?php
+$galleryImages = json_decode($block->getGalleryImagesJson(), true);
+foreach ($galleryImages as &$image) {
+    $image['loading'] = 'lazy';
+    $image['fetchpriority'] = 'low';
+    $image['decoding'] = 'async';
+}
+$optimizedGalleryImages = json_encode($galleryImages);
+?>
 <script type="text/x-magento-init">
     {
         "[data-gallery-role=gallery-placeholder]": {
             "mage/gallery/gallery": {
+                "lazyLoad": true,
+                "thumbmargin": 10,
+                "transition": "slide",
+                "transitionduration": 300,
+                "loop": false,
+                "arrows": true,
+                "allowfullscreen": true,
+                "showCaption": false,
+                "disableZoom": false,
+                "navdir": "horizontal",
+                "navarrows": true,
+                "navtype": "slides",
+                "ratio": "1",
+                "keyboard": true,
                 "mixins":["magnifier/magnify"],
                 "magnifierOpts": <?= /* @noEscape */ $block->getMagnifier() ?>,
-                "data": <?= /* @noEscape */ $block->getGalleryImagesJson() ?>,
-                "options": <?= /* @noEscape */ $block->getGalleryOptions()->getOptionsJson() ?>,
+                "data": <?= /* @noEscape */ $optimizedGalleryImages ?>,
+                "options": {
+                    "nav": "thumbs",
+                    "loop": false,
+                    "keyboard": true,
+                    "arrows": true,
+                    "allowfullscreen": true,
+                    "showCaption": false,
+                    "width": "100%",
+                    "thumbwidth": 100,
+                    "thumbheight": 100,
+                    "thumbmargin": 10,
+                    "thumbborderwidth": 0,
+                    "click": false,
+                    "swipe": true,
+                    "trackpad": true,
+                    "shuffle": false,
+                    "transition": "slide",
+                    "fit": "contain",
+                    "preventSlideshow": true,
+                    "fastPreview": true,
+                    "preload": 2,
+                    "lazy": true,
+                    "imagePriority": "high"
+                },
                 "fullscreen": <?= /* @noEscape */ $block->getGalleryOptions()->getFSOptionsJson() ?>,
-                 "breakpoints": <?= /* @noEscape */ $block->getBreakpoints() ?>
+                "breakpoints": <?= /* @noEscape */ $block->getBreakpoints() ?>
             }
         }
     }

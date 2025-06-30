@@ -46,10 +46,10 @@ if ($_attributeType && $_attributeType == 'text') {
 ?>
 
 <?php if ($_attributeValue) :?>
-<div class="product attribute <?= $block->escapeHtmlAttr($_className) ?>">
+<div class="product attribute <?= $block->escapeHtmlAttr($_className) ?>" style="contain: content; will-change: contents; transform: translateZ(0); backface-visibility: hidden; text-rendering: optimizeSpeed;">
     <?php if ($renderLabel) :?>
-        <strong class="type"><?= $block->escapeHtml($_attributeLabel) ?></strong>
+        <strong class="type" style="contain: content;"><?= $block->escapeHtml($_attributeLabel) ?></strong>
     <?php endif; ?>
-    <div class="value" <?= /* @noEscape */ $_attributeAddAttribute ?>><?= /* @noEscape */ $_attributeValue ?></div>
+    <div class="value" style="contain: content; will-change: contents; text-rendering: optimizeSpeed; transform: translateZ(0);" <?= /* @noEscape */ $_attributeAddAttribute ?>><?= /* @noEscape */ $_attributeValue ?></div>
 </div>
 <?php endif; ?>

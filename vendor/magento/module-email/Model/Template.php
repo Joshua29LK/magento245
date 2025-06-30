@@ -382,6 +382,7 @@ class Template extends AbstractTemplate implements \Magento\Framework\Mail\Templ
         if ($isDesignApplied) {
             $this->cancelDesignConfig();
         }
+        
         return $text;
     }
 
